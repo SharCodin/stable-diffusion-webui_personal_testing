@@ -3,6 +3,7 @@ import html
 import os
 import platform
 import sys
+from datetime import datetime
 
 import gradio as gr
 import subprocess as sp
@@ -71,6 +72,8 @@ def save_files(js_data, images, do_make_zip, index):
             i = 0 if is_grid else (image_index - p.index_of_first_image)
 
             fullfn, txt_fullfn = modules.images.save_image(image, path, "", seed=p.all_seeds[i], prompt=p.all_prompts[i], extension=extension, info=p.infotexts[image_index], grid=is_grid, p=p, save_to_dirs=save_to_dirs)
+            current_date_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            modules.images.save_image(image, f"/content/drive/MyDrive/Outputs/{current_date_time}", "", seed=p.all_seeds[i], prompt=p.all_prompts[i], extension=extension, info=p.infotexts[image_index], grid=is_grid, p=p, save_to_dirs=save_to_dirs)
 
             filename = os.path.relpath(fullfn, path)
             filenames.append(filename)
